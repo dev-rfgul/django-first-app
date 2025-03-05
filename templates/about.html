@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <!-- <li><a href="">Our Team</a></li> -->
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <h1>Welcome to Our About Page</h1>
+      <p>Learn more about who we are and what we do.</p>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>Who We Are</h2>
+      <p>
+        We are a passionate team of developers, designers, and creatives dedicated to building 
+        amazing web experiences. Our mission is to bring ideas to life through innovative web solutions.
+      </p>
+      <p>
+        With years of experience in Django and front-end technologies, we create websites that are 
+        fast, secure, and visually appealing.
+      </p>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+      <h2>Meet Our Team</h2>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="John Doe" />
+        <h3>John Doe</h3>
+        <p>Lead Developer</p>
+      </div>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Jane Smith" />
+        <h3>Jane Smith</h3>
+        <p>UI/UX Designer</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 My Django App. All rights reserved.</p>
+      <p>
+        Follow us on <a href="#">Twitter</a> | <a href="#">GitHub</a> | <a href="#">LinkedIn</a>
+      </p>
+    </footer>
+  </body>
+</html>

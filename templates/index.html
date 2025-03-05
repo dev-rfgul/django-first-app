@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <header>
+        <h1>Welcome to My Django App</h1>
+        <p>How are you feeling today?</p>
+        <button onclick="alert('Have a great day!')">Click Me</button>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About This Project</h2>
+        <p>This is a simple Django-powered website showcasing how to use templates with static files.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 My Django App</p>
+        <p>Follow us on <a href="#">Twitter</a> | <a href="#">GitHub</a></p>
+    </footer>
+</body>
+</html>
