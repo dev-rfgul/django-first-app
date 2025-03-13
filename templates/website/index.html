@@ -1,4 +1,17 @@
-{% load static %}
+{% extends "layout.html" %}
+
+{% block title %}
+  Home Page
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome to the Home Page</h1>
+  <p>This content is coming from the index.html file.</p>
+{% endblock %}
+
+
+
+{% comment %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,4 +49,4 @@
         <p>Follow us on <a href="#">Twitter</a> | <a href="#">GitHub</a></p>
     </footer>
 </body>
-</html>
+</html> {% endcomment %}

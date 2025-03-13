@@ -3,5 +3,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('',views.jinja,name='jinja'),
+    path('home/',views.jinja,name='jinja'),
 ]
