@@ -23,6 +23,11 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('about/',views.about,name='about'),
     path('contact/',views.contact),
-    path('jinja/', include('jinja.urls'))
+    path('jinja/', include('jinja.urls')),
+    
+
+        
+    # always keep this path at the end 
+    path("__reload__/",include('django_browser_reload.urls'))
     
 ]
