@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings #needed for img upload configuration 
+from django.conf.urls.static import static #needed for img upload configuration 
 from . import views
 
 urlpatterns = [
@@ -26,8 +28,11 @@ urlpatterns = [
     path('jinja/', include('jinja.urls')),
     
 
+    # image uploading configuration
+    
+        
         
     # always keep this path at the end 
     path("__reload__/",include('django_browser_reload.urls'))
     
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

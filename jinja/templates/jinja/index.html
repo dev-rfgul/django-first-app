@@ -1,3 +1,4 @@
+{% comment %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,5 +12,53 @@
         <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Jinja Page</h1>
         <p class="text-gray-600 dark:text-gray-300">This is a simple Jinja page enhanced with Tailwind CSS.</p>
     </div>
+    {% for chai in chais%}
+    {{chai}}
+    <div class='chai-item'>
+    <img src={{chai.image.url}} alt="">
+    </div>
+    {% endfor %}
 </body>
-</html> 
+</html>  {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jinja Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-all min-h-screen flex flex-col items-center justify-start p-6 space-y-6">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-xl">
+    <h1 class="text-4xl font-extrabold mb-2">Jinja Page</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-300">This is a simple Jinja page enhanced with Tailwind CSS.</p>
+  </div>
+
+  <!-- Chai Items -->
+  <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 w-full max-w-6xl mt-4">
+    {% for chai in chais %}
+    <div class="bg-white dark:bg-yellow-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+      <img src="{{ chai.image.url }}" alt="Chai Image" class="w-full h-48 object-cover"/>
+      <div class="p-4">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Chai {{ chai.name }}</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.type}}</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.date_added}}</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.description}}</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.price}}</p>
+        <a href={% url 'chai_details' chai.id %}>
+        <button class="bg-green-500 width-full text-white font-semibold py-2 px-4 rounded-lg mt-2">
+          View
+        {{chai.type}}-{{chai.id}}
+        </button>
+        </a>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
