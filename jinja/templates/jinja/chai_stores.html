@@ -4,30 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chai Store</title>
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chai: {
+                            primary: '#8B4513',
+                            secondary: '#D2B48C',
+                            accent: '#F5DEB3',
+                            light: '#FFF8DC',
+                            dark: '#5D2906'
+                        }
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for Django form elements */
+        form p {
+            @apply mb-4;
+        }
+        form p label {
+            @apply block text-sm font-medium text-gray-700 mb-1;
+        }
+        form p input, form p select, form p textarea {
+            @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-chai-primary focus:ring focus:ring-chai-secondary focus:ring-opacity-50 py-2 px-3;
+        }
+        form p input {
+            @apply border;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans min-h-screen p-4">
-    <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
-        <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">Welcome to Chai Store</h1>
-
-        <form method="POST" class="space-y-4">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                Submit
+<body class="bg-gradient-to-br from-chai-light to-white min-h-screen font-poppins text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-chai-primary text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-mug-hot text-2xl mr-3 text-chai-accent"></i>
+                <span class="font-bold text-xl">Chai Store</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-chai-accent transition duration-200">Home</a>
+                <a href="#" class="hover:text-chai-accent transition duration-200">Menu</a>
+                <a href="#" class="hover:text-chai-accent transition duration-200">Locations</a>
+                <a href="#" class="hover:text-chai-accent transition duration-200">Contact</a>
+            </div>
+            <button class="md:hidden text-xl">
+                <i class="fas fa-bars"></i>
             </button>
-        </form>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <header class="bg-chai-primary bg-opacity-90 text-white py-12 mb-8">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Chai Store</h1>
+            <p class="text-xl text-chai-accent mb-6 max-w-2xl mx-auto">Discover the perfect blend of tradition and taste in every cup.</p>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-6 max-w-4xl">
+        <!-- Form Section -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-chai-secondary border-opacity-20 transform transition duration-500 hover:shadow-xl">
+            <h2 class="text-2xl font-semibold text-chai-primary mb-4 flex items-center">
+                <i class="fas fa-edit mr-2"></i>
+                Add New Store
+            </h2>
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                {{ form.as_p|safe }}
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="bg-chai-primary hover:bg-chai-dark text-white font-medium py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-chai-secondary transition duration-200 flex items-center">
+                        <i class="fas fa-save mr-2"></i>
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Stores List -->
         {% if stores %}
-            <h2 class="text-2xl font-semibold mt-8 mb-4 text-green-600">Stores Available</h2>
-            <ul class="list-disc pl-6 space-y-2">
-                {% for store in stores %}
-                    <li class="text-gray-700">
-                        <span class="font-medium">{{ store.name }}</span> — {{ store.location }}
-                    </li>
-                {% endfor %}
-            </ul>
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-chai-secondary border-opacity-20">
+                <h2 class="text-2xl font-semibold text-chai-primary border-b-2 border-chai-secondary pb-2 mb-6 flex items-center">
+                    <i class="fas fa-store mr-2"></i>
+                    Stores Available
+                </h2>
+                <ul class="divide-y divide-gray-100">
+                    {% for store in stores %}
+                        <li class="py-4 flex justify-between items-center hover:bg-chai-light hover:bg-opacity-30 px-3 rounded-lg transition duration-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-chai-primary mr-3"></i>
+                                <span class="font-medium text-lg">{{ store.name }}</span>
+                            </div>
+                            <span class="text-gray-600 bg-gray-100 py-1 px-3 rounded-full text-sm">{{ store.location }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-chai-secondary border-opacity-20 text-center">
+                <i class="fas fa-store-slash text-4xl text-gray-400 mb-4"></i>
+                <p class="text-gray-500">No stores available yet. Add your first store above!</p>
+            </div>
         {% endif %}
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-chai-primary text-white mt-12 py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About Us</h3>
+                    <p class="text-chai-accent text-opacity-80">We bring you the finest chai experience with carefully selected ingredients and traditional brewing methods.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-chai-accent transition duration-200">Home</a></li>
+                        <li><a href="#" class="hover:text-chai-accent transition duration-200">Menu</a></li>
+                        <li><a href="#" class="hover:text-chai-accent transition duration-200">Locations</a></li>
+                        <li><a href="#" class="hover:text-chai-accent transition duration-200">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-chai-secondary border-opacity-30 mt-8 pt-6 text-center">
+                <p>&copy; 2025 Chai Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
