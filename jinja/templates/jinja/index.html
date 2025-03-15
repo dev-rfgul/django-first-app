@@ -1,42 +1,207 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jinja Page</title>
+  <title>Chai Store - Our Menu</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            chai: {
+              primary: '#8B4513',
+              secondary: '#D2B48C',
+              accent: '#F5DEB3',
+              light: '#FFF8DC',
+              dark: '#5D2906'
+            }
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-all min-h-screen flex flex-col items-center justify-start p-6 space-y-6">
+<body class="bg-gradient-to-br from-chai-light to-white font-poppins text-gray-800 min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-chai-primary text-white shadow-lg sticky top-0 z-10">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <i class="fas fa-mug-hot text-2xl mr-3 text-chai-accent"></i>
+        <span class="font-bold text-xl">Chai Store</span>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="#" class="hover:text-chai-accent transition duration-200">Home</a>
+        <a href="#" class="hover:text-chai-accent transition duration-200 border-b-2 border-chai-accent">Menu</a>
+        <a href="#" class="hover:text-chai-accent transition duration-200">Locations</a>
+        <a href="#" class="hover:text-chai-accent transition duration-200">Contact</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button class="bg-chai-accent bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition">
+          <i class="fas fa-search text-chai-accent"></i>
+        </button>
+        <button class="bg-chai-accent bg-opacity-20 p-2 rounded-full hover:bg-opacity-30 transition">
+          <i class="fas fa-shopping-cart text-chai-accent"></i>
+        </button>
+        <button class="md:hidden text-xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-  <!-- Header Section -->
-  <div class="text-center max-w-xl">
-    <h1 class="text-4xl font-extrabold mb-2">Jinja Page</h1>
-    <p class="text-lg text-gray-600 dark:text-gray-300">This is a simple Jinja page enhanced with Tailwind CSS.</p>
+  <!-- Hero Section -->
+  <div class="bg-chai-primary bg-opacity-90 text-white py-10">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold mb-2">Our Chai Collection</h1>
+      <p class="text-lg text-chai-accent max-w-2xl mx-auto">Discover our handcrafted selection of premium chai blends from around the world.</p>
+      
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap justify-center mt-6 gap-2">
+        <button class="bg-white text-chai-primary px-4 py-2 rounded-full font-medium hover:bg-opacity-90 transition">
+          All Chais
+        </button>
+        <button class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full font-medium hover:bg-opacity-30 transition">
+          Masala
+        </button>
+        <button class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full font-medium hover:bg-opacity-30 transition">
+          Herbal
+        </button>
+        <button class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full font-medium hover:bg-opacity-30 transition">
+          Spiced
+        </button>
+        <button class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full font-medium hover:bg-opacity-30 transition">
+          Specialty
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Chai Items -->
-  <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 w-full max-w-6xl mt-4">
-    {% for chai in chais %}
-    <div class="bg-white dark:bg-yellow-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-      <img src="{{ chai.image.url }}" alt="Chai Image" class="w-full h-48 object-cover"/>
-      <div class="p-4">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Chai {{ chai.name }}</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.type}}</p>
-        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.date_added}}</p>
-        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.description}}</p>
-        <p class="text-sm text-gray-600 dark:text-gray-300">{{chai.price}}</p>
-        <a href={% url 'chai_details' chai.id %}>
-        <button class="bg-green-500 width-full text-white font-semibold py-2 px-4 rounded-lg mt-2">
-          View
-        {{chai.type}}-{{chai.id}}
-        </button>
-        </a>
-
+  <div class="container mx-auto px-4 py-10">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {% for chai in chais %}
+      <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 group">
+        <div class="relative overflow-hidden">
+          <img src="{{ chai.image.url }}" alt="{{ chai.name }} Chai" class="w-full h-56 object-cover transform group-hover:scale-105 transition duration-500"/>
+          <div class="absolute top-0 right-0 bg-chai-primary text-white m-3 px-2 py-1 rounded-lg text-sm font-medium">
+            {{ chai.price }}
+          </div>
+          <div class="absolute top-0 left-0 bg-chai-secondary text-chai-dark m-3 px-2 py-1 rounded-lg text-sm font-medium">
+            {{ chai.type }}
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex justify-between items-start">
+            <h2 class="text-xl font-bold text-chai-primary">{{ chai.name }}</h2>
+            <div class="flex text-yellow-500">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          
+          <p class="text-gray-500 text-sm mt-1">Added on {{ chai.date_added }}</p>
+          
+          <p class="mt-3 text-gray-600 line-clamp-2">{{ chai.description }}</p>
+          
+          <div class="mt-4 flex justify-between items-center">
+            <a href="{% url 'chai_details' chai.id %}" class="block w-full">
+              <button class="bg-chai-primary hover:bg-chai-dark text-white font-medium py-2 px-4 rounded-lg w-full transition duration-300 flex items-center justify-center">
+                <i class="fas fa-eye mr-2"></i>
+                View Details
+              </button>
+            </a>
+          </div>
+          
+          <div class="flex justify-between items-center mt-3 text-sm">
+            <span class="text-gray-500">ID: {{ chai.id }}</span>
+            <button class="text-chai-primary hover:text-chai-dark transition">
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 
+  <!-- Empty State (Will only show when no chais are available) -->
+  {% if not chais %}
+  <div class="container mx-auto px-4 py-16 text-center">
+    <i class="fas fa-mug-hot text-6xl text-gray-300 mb-4"></i>
+    <h2 class="text-2xl font-bold text-gray-500">No Chai Available</h2>
+    <p class="text-gray-400 mt-2">Check back soon as we update our collection.</p>
+  </div>
+  {% endif %}
+
+  <!-- Pagination -->
+  <div class="container mx-auto px-4 py-8 flex justify-center">
+    <div class="flex space-x-1">
+      <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-600 hover:bg-gray-300 transition">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="px-4 py-2 rounded-lg bg-chai-primary text-white">1</button>
+      <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-600 hover:bg-gray-300 transition">2</button>
+      <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-600 hover:bg-gray-300 transition">3</button>
+      <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-600 hover:bg-gray-300 transition">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-chai-primary text-white mt-12 py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">About Us</h3>
+          <p class="text-chai-accent text-opacity-80">We bring you the finest chai experience with carefully selected ingredients and traditional brewing methods.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-chai-accent transition duration-200">Home</a></li>
+            <li><a href="#" class="hover:text-chai-accent transition duration-200">Menu</a></li>
+            <li><a href="#" class="hover:text-chai-accent transition duration-200">Locations</a></li>
+            <li><a href="#" class="hover:text-chai-accent transition duration-200">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Subscribe</h3>
+          <div class="flex">
+            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full" />
+            <button class="bg-chai-secondary text-chai-dark px-4 py-2 rounded-r-lg hover:bg-opacity-90 transition">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-2xl hover:text-chai-accent transition duration-200">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-chai-secondary border-opacity-30 mt-8 pt-6 text-center">
+        <p>&copy; 2025 Chai Store. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
